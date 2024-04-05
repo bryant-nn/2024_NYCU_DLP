@@ -72,7 +72,10 @@ class VGG19(nn.Module):
             nn.Linear(4096, 4096),
             nn.ReLU(inplace=True),
             nn.Dropout(),
-            nn.Linear(4096, num_classes),
+            nn.Linear(4096, 1000),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Linear(1000, num_classes),
         )
         
         # Initialize the weights of the fully connected layers

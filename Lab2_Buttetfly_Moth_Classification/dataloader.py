@@ -32,13 +32,14 @@ class BufferflyMothLoader(data.Dataset):
         self.root = root
         self.img_name, self.label = getData(mode)
         self.mode = mode
-        print("> Found %d images..." % (len(self.img_name)))  
+        # print("> Found %d images..." % (len(self.img_name)))  
 
         # 定義圖像轉換
         self.transform = transforms.Compose([
             transforms.Resize((224, 224)),  # 調整圖像大小為 224x224
-            # transforms.RandomHorizontalFlip(),  # 隨機對圖像執行水平翻轉
-            # transforms.RandomRotation(15),  # 隨機旋轉圖像
+            transforms.RandomHorizontalFlip(),  # 隨機對圖像執行水平翻轉
+            transforms.RandomRotation(15),  # 隨機旋轉圖像
+            transforms.RandomCrop(224, padding=8),  # 隨機裁剪圖像
             transforms.ToTensor(),  # 轉換圖像為 tensor，並將像素值範圍調整到 [0, 1]
         ])
 
@@ -72,7 +73,10 @@ class BufferflyMothLoader(data.Dataset):
         
 
         # img = img.convert('RGB')
-        img = self.transform(img)
+        if self.mode == 'train':
+            img = self.transform(img)
+        else:
+            img = transforms.ToTensor()(img)
         # print(img.shape)
         # normalize
         
