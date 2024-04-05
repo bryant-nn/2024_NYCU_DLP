@@ -21,11 +21,11 @@ class Bottleneck(nn.Module):
         )
 
         # Initialize the weights of the convolution layers
-        # for m in self.block.modules():
-        #     if isinstance(m, nn.Conv2d):
-        #         init.kaiming_normal_(m.weight)
-        #         if m.bias is not None:
-        #             init.constant_(m.bias, 0)
+        for m in self.block.modules():
+            if isinstance(m, nn.Conv2d):
+                init.kaiming_normal_(m.weight)
+                if m.bias is not None:
+                    init.constant_(m.bias, 0)
 
         self.shortcut = nn.Sequential()
 
@@ -36,11 +36,11 @@ class Bottleneck(nn.Module):
             )
 
             # Initialize the weights of the convolution layers
-            # for m in self.shortcut.modules():
-            #     if isinstance(m, nn.Conv2d):
-            #         init.kaiming_normal_(m.weight)
-            #         if m.bias is not None:
-            #             init.constant_(m.bias, 0)
+            for m in self.shortcut.modules():
+                if isinstance(m, nn.Conv2d):
+                    init.kaiming_normal_(m.weight)
+                    if m.bias is not None:
+                        init.constant_(m.bias, 0)
 
         self.relu = nn.ReLU(inplace=True)
 
@@ -68,11 +68,11 @@ class ResNet50(nn.Module):
         )
 
         # initialize the weights of the convolution layers
-        # for m in self.layer0.modules():
-        #     if isinstance(m, nn.Conv2d):
-        #         init.kaiming_normal_(m.weight)
-        #         if m.bias is not None:
-        #             init.constant_(m.bias, 0)
+        for m in self.layer0.modules():
+            if isinstance(m, nn.Conv2d):
+                init.kaiming_normal_(m.weight)
+                if m.bias is not None:
+                    init.constant_(m.bias, 0)
 
         # stage 1
         self.layer1 = nn.Sequential(
